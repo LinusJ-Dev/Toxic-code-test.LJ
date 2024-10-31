@@ -1,0 +1,18 @@
+:root {
+    --background-color: #1c1c1e;
+    --primary-accent-color: #d32f2f;
+    --secondary-accent-color: #ffca28;
+    --text-color: #e0e0e0;
+    --hover-color: #536dfe;
+}
+
+@font-face {
+    font-family: 'Exo2';
+    src: url('/fonts/Exo2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: 'Exo2', sans-serif;
+}
