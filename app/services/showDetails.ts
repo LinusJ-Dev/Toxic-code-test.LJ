@@ -6,6 +6,7 @@ export const getShowDetails = async (showId: string): Promise<Show> => {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_MOVIE_DB_ACCESS_TOKEN}`,
     },
+    
   });
   return response.data as Show;
 };

@@ -48,6 +48,7 @@ const ShowDetailPage = () => {
     
     <div className="show-detail">
       <h1>{show.name}</h1>
+      <h2>{show.original_name}</h2>
       <Image
         src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
         alt={show.name}
