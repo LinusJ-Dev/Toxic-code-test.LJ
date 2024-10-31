@@ -5,7 +5,10 @@ import { getShowDetails } from '../../services/showDetails';
 import { Show } from '../../types/Show';
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from '@/app/components/header';
+import Header from '@/app/components/Header';
+
+import styles from './page.module.css';
+import getLanguageName from '@/app/utils/languageName';
 
 const ShowDetailPage = () => {
   const { showId } = useParams();
@@ -44,34 +47,42 @@ const ShowDetailPage = () => {
 
 
   return (
-    <div className="show-detail">
+    <>
       <Header>
         <Link href="/">
           Back to Start Page
         </Link>
       </Header>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        show && (
-          <>
-            <h1>{show.name}</h1>
-            {show.name !== show.original_name && <p>{show.original_name}</p>}
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
-              alt={show.name}
-              width={300}
-              height={450}
-            />
-            <p>Rating: {show.vote_average}</p>
-            <p>First Air Date: {show.first_air_date}</p>
-            <p>{show.overview}</p>
-          </>
-        )
-      )}
-    </div>
+      <div className={styles.showDetail}>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          show && (
+            <>
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
+                alt={show.name}
+                width={300}
+                height={450}
+                className={styles.showImage}
+              />
+              <div className={styles.showInfo}>
+                <h1 className={styles.showTitle}>{show.name}</h1>
+                {show.name !== show.original_name && <p className={styles.showOriginalTitle}>{show.original_name}</p>}
+                <p>Rating: {show.vote_average}</p>
+                {show.first_air_date && <p>First Air Date: {show.first_air_date}</p>}
+                {show.overview && <p>{show.overview}</p>}
+                {show.vote_count !== undefined && <p>Vote Count: {show.vote_count}</p>}
+                {show.last_air_date && <p>Last Air Date: {show.last_air_date}</p>}
+                {show.original_language && <p>Original Language: {getLanguageName(show.original_language)}</p>}
+              </div>
+            </>
+          )
+        )}
+      </div>
+    </>
   );
 };
 

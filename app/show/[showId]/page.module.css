@@ -1,0 +1,28 @@
+.showDetail{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 2.5rem;
+}
+.showImage{
+    width: 100%;
+    height: auto;
+}
+.showInfo{
+    width:100%;
+}
+
+.showTitle{
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: var(--primary-accent-color)
+}
+.showOriginalTitle{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: var(--secondary-accent-color)
+}

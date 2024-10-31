@@ -1,0 +1,35 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    width: 100%;
+}
+
+.headerWrapper{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-bottom: solid 2px var(--primary-accent-color);
+}
+
+.appTitle{
+    font-size: 1.25rem;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 2rem;
+    color: var(--secondary-accent-color)
+}
+
+.header a{
+    color: var(--primary-accent-color);
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+.header a:hover{
+    color: var(--hover-color);
+    text-decoration: underline;
+}

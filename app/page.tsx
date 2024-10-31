@@ -4,8 +4,11 @@ import { useState, useEffect, useCallback } from 'react';
 import { getPopularShows } from './services/shows';
 import { Show } from './types/Show';
 import getLanguageName from './utils/languageName';
-import Header from './components/header';
+import Header from './components/Header';
+import SearchForm from './components/SearchForm';
 import ShowCard from './components/ShowCard';
+
+import styles from './page.module.css';
 
 const Home = () => {
   const [shows, setShows] = useState<Show[]>([]);
@@ -79,68 +82,37 @@ const Home = () => {
   return (
     <>
       <Header>
-        <form>
-          <label htmlFor="search">Search shows by title</label>
-          <input
-            id="search"
-            type="text"
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-              handleSearch();
-            }}
-            placeholder="Search shows by title"
-          />
-
-          <label htmlFor="language">Filter by language</label>
-          <select
-            id="language"
-            onChange={(e) => {
-              setLanguage(e.target.value);
-              handleSearch();
-            }}
-          >
-            <option value="">Any Language</option>
-            {languageOptions.map((option) => (
-              <option key={option.code} value={option.code}>
-                {option.name}
-              </option>
-            ))}
-          </select>
-
-          <label htmlFor="airDate">Filter by air date</label>
-          <select
-            id="airDate"
-            onChange={(e) => {
-              setAirDateFilter(e.target.value);
-              handleSearch();
-            }}
-          >
-            <option value="latest">Latest Air Date</option>
-            <option value="oldest">Oldest Air Date</option>
-          </select>
-        </form>
+        <SearchForm
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          handleSearch={handleSearch}
+          setLanguage={setLanguage}
+          languageOptions={languageOptions}
+          setAirDateFilter={setAirDateFilter}
+        />
       </Header>
 
-      <div role="status" aria-live="polite" aria-busy={loading} style={{ position: 'absolute', left: '-9999px' }}>
-        {updateMessage}
-      </div>
-
-      <div className="shows-grid" aria-busy={loading} aria-live="polite">
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : shows.length === 0 ? (
-          <p>No shows found. Please adjust your search criteria.</p>
-        ) : (
-          shows.map((show) => (
-            <ShowCard
-              show={show}
-              key={show.id}
-            />
-          ))
-        )}
+      <div className={styles.gridWrapper}>
+        <div role="status" aria-live="polite" aria-busy={loading} style={{ position: 'absolute', left: '-9999px' }}>
+          {updateMessage}
+        </div>
+        <h1 className={styles.title}>Popular TV series</h1>
+        <div className={styles.showsGrid} aria-busy={loading} aria-live="polite">
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>{error}</p>
+          ) : shows.length === 0 ? (
+            <p>No shows found. Please adjust your search criteria.</p>
+          ) : (
+            shows.map((show) => (
+              <ShowCard
+                show={show}
+                key={show.id}
+              />
+            ))
+          )}
+        </div>
       </div>
     </>
   );
