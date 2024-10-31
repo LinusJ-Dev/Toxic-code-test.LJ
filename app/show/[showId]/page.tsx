@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { getShowDetails } from '../../services/showDetails';
 import { Show } from '../../types/Show';
 import Image from 'next/image';
+import Link from 'next/link';
+import Header from '@/app/components/header';
 
 const ShowDetailPage = () => {
   const { showId } = useParams();
@@ -20,11 +22,12 @@ const ShowDetailPage = () => {
 
     const fetchDetails = async () => {
       try {
-        console.log('Fetching show details...');
         const showData = await getShowDetails(showId as string);
-        console.log('found show!');
-        console.log(showData);
-        setShow(showData);
+        if ('httpCode' in showData) {
+          setError(`Failed to load show details: ${showData.message}`);
+        } else {
+          setShow(showData);
+        }
       } catch (err) {
         if (err instanceof Error) {
           setError('Failed to load show details: ' + err.message);
@@ -39,25 +42,35 @@ const ShowDetailPage = () => {
     fetchDetails();
   }, [showId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-  if (!show) return <p>No show found.</p>;
 
   return (
-
-    
     <div className="show-detail">
-      <h1>{show.name}</h1>
-      <h2>{show.original_name}</h2>
-      <Image
-        src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
-        alt={show.name}
-        width={300}
-        height={450}
-      />
-      <p>Rating: {show.vote_average}</p>
-      <p>First Air Date: {show.first_air_date}</p>
-      <p>{show.overview}</p>
+      <Header>
+        <Link href="/">
+          Back to Start Page
+        </Link>
+      </Header>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        show && (
+          <>
+            <h1>{show.name}</h1>
+            {show.name !== show.original_name && <p>{show.original_name}</p>}
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
+              alt={show.name}
+              width={300}
+              height={450}
+            />
+            <p>Rating: {show.vote_average}</p>
+            <p>First Air Date: {show.first_air_date}</p>
+            <p>{show.overview}</p>
+          </>
+        )
+      )}
     </div>
   );
 };
