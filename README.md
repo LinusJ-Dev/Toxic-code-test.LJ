@@ -32,10 +32,13 @@ cd your-repo-name
 npm install
 
 ```
+4.  **Copy and configure .env.example:**
 
+Copy and rename the .env.example too .env and enter your API access token. 
+Get an access token from here: https://www.themoviedb.org/tv
   
 
-3.  **Run the development server:**
+4.  **Run the development server:**
 
 ```sh
 
@@ -45,7 +48,7 @@ npm run dev
 
   
 
-4.  **Open your browser and navigate to:**
+5.  **Open your browser and navigate to:**
 
 ```
 
@@ -53,7 +56,7 @@ http://localhost:3000
 
 ```
 
-  5.  **If you see Unknown language (..):**
+  6.  **If you see Unknown language (..):**
 I tried to implement a bunch of common languages. But if you find one missing, you can add it in  
 ```
 /app/utils/languageNames.tsx
